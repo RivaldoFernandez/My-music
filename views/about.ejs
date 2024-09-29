@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acerca de</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+      color: #333;
+    }
+    .sidebar {
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      padding-top: 20px;
+      background-color: #fffb00;
+      color: rgb(255, 0, 0);
+    }
+    .sidebar a:hover {
+      background-color: #00eeff;
+      border-radius: 5px;
+    }
+    .sidebar-heading {
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #adb5bd;
+    }
+    main {
+      margin-left: 250px; /* Ajustar según el ancho de la barra lateral */
+      padding: 20px;
+    }
+    .card {
+      border: none; 
+      border-radius: 15px; 
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+    }
+    h1 {
+      color: #007bff; /* Color para el título principal */
+    }
+    ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+    .card-title {
+      color: #0056b3; /* Color para los subtítulos */
+    }
+  </style>
+</head>
+<body>
+  <div class="d-flex">
+    <%- include('sidebar') %> <!-- Incluir el sidebar -->
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-4">
+      <h1 class="my-4 text-center">Acerca de este Proyecto</h1>
+      <div class="card p-4">
+        <h5 class="card-title">Descripción</h5>
+        <p class="card-text">
+          Este proyecto es una aplicación musical que permite a los usuarios gestionar su colección de canciones. 
+          Puedes añadir, editar y escuchar música fácilmente.
+        </p>
+        <h5 class="card-title">Características</h5>
+        <ul>
+          <li>Registro e inicio de sesión de usuarios con validación usando Joi.</li>
+          <li>Contraseña encriptada utilizando bcrypt para mayor seguridad.</li>
+          <li>Agregar nuevas canciones a la colección.</li>
+          <li>Editar detalles de las canciones existentes.</li>
+          <li>Eliminar canciones de la colección.</li>
+          <li>Reproducir música directamente desde la aplicación.</li>
+          <li>Marcar canciones como favoritas para acceso rápido.</li>
+          <li>Visualizar información detallada de cada canción.</li>
+        </ul>
+        <h5 class="card-title">Tecnologías Utilizadas</h5>
+        <p class="card-text">
+          La aplicación está construida con Node.js, Express y EJS como motor de plantillas. 
+          Se utiliza Bootstrap para el diseño responsivo, asegurando una experiencia óptima en dispositivos móviles y de escritorio.
+        </p>
+        <%- include('footer') %>
+      </div>
+    </main>
+    
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

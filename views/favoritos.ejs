@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favoritos Musicales</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+    }
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s; /* Efecto de hover */
+    }
+    .card:hover {
+      transform: scale(1.05); /* Efecto de aumento al pasar el mouse */
+    }
+    .sidebar {
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      padding-top: 20px;
+      background-color: #fffb00;
+      color: rgb(255, 0, 0);
+      width: 250px; /* Ancho de la barra lateral */
+    }
+
+    .sidebar a:hover {
+      background-color: #00eeff;
+      border-radius: 5px;
+    }
+    .sidebar-heading {
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #adb5bd;
+    }
+    main {
+      margin-left: 250px; /* Deja espacio para la barra lateral */
+      padding: 20px;
+    }
+    h1 {
+      color: #007bff; /* Color para el título principal */
+    }
+  </style>
+</head>
+<body>
+  <div class="d-flex">
+    <!-- Barra lateral -->
+    <%- include('sidebar') %>
+    
+    <main class="flex-grow-1">
+      <div class="container mt-4">
+        <h1 class="text-center">Mis Canciones Favoritas</h1>
+        <div class="row mt-4">
+          <% favoriteSongs.forEach(song => { %>
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <img src="/images/<%= song.coverImage || 'default-cover.jpg' %>" class="card-img-top" alt="<%= song.title %>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= song.title %></h5>
+                  <p class="card-text"><strong>Artista:</strong> <%= song.artist %></p>
+                  <p class="card-text"><strong>Álbum:</strong> <%= song.album || 'N/A' %></p>
+                  <p class="card-text"><strong>Año:</strong> <%= song.year %></p>
+                  <a href="/details/<%= song._id %>" class="btn btn-info">Ver Detalles</a>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+        <div class="text-center mt-4">
+          <a href="/" class="btn btn-primary">Volver al Dashboard</a>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

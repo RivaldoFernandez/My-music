@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Mi Dashboard Musical</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .sidebar {
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      padding-top: 20px;
+      background-color: #fffb00;
+      color: rgb(255, 0, 0);
+    }
+
+    .sidebar a:hover {
+      background-color: #00eeff;
+      border-radius: 5px;
+    }
+    .sidebar-heading {
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #adb5bd;
+    }
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+    }
+    .btn {
+      background-color: #ff0000; /* Default background color */
+      color: white; /* Text color */
+      border: none; /* No border */
+      border-radius: 10px; /* Rounded corners */
+      padding: 10px 20px; /* Padding */
+      cursor: pointer; /* Pointer cursor */
+      transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+  }
+  
+  .btn:hover {
+      background-color: #00eeff; /* Color on hover */
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transform: scale(1.05); /* Slightly scale up on hover */
+  }
+  
+  .btn:active {
+      background-color: #000000; /* Color when clicked */
+      transform: scale(0.95); /* Scale down when clicked */
+  }
+  
+  </style>
+</head>
+<body>
+  <div class="d-flex">
+    <%- include('sidebar') %>
+    <div class="main-content">
+    
+      <div class="row">
+        <% songs.forEach(song => { %>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <% if (song.coverImage) { %>
+                <img src="/images/<%= song.coverImage %>" class="card-img-top" alt="<%= song.title %>">
+              <% } else { %>
+                <img src="/images/default-cover.jpg" class="card-img-top" alt="Portada por defecto">
+              <% } %>
+              <div class="card-body">
+                <h5 class="card-title"><%= song.title %></h5>
+                <p class="card-text"><strong>Artista:</strong> <%= song.artist %></p>
+                <p class="card-text"><strong>Álbum:</strong> <%= song.album || 'N/A' %></p>
+                <p class="card-text"><strong>Año:</strong> <%= song.year %></p>
+                <a href="/edit-song/<%= song._id %>" class="btn btn-warning">Editar</a>
+                <a href="/details/<%= song._id %>" class="btn btn-info">Ver Detalles</a>
+                
+                <!-- Formulario para eliminar la canción -->
+                <form action="/delete-song/<%= song._id %>" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta canción?');">Eliminar</button>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+      <%- include('footer') %>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

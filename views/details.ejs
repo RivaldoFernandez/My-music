@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Detalles de la Canción</title>
+  <style>
+    body {
+      background-color: #e9ecef; /* Fondo gris claro para un diseño más suave */
+      font-family: 'Arial', sans-serif; /* Fuente moderna */
+    }
+    .card {
+      border: none; /* Sin borde */
+      border-radius: 20px; /* Esquinas más redondeadas */
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Sombra más prominente */
+      transition: transform 0.3s; /* Efecto de hover */
+    }
+    .card:hover {
+      transform: translateY(-5px); /* Efecto de elevación al pasar el mouse */
+    }
+    .card-img-top {
+      height: 300px; /* Altura de la imagen */
+      object-fit: cover; /* Mantiene la relación de aspecto */
+      border-top-left-radius: 20px; /* Esquinas redondeadas */
+      border-top-right-radius: 20px; /* Esquinas redondeadas */
+    }
+    .card-title {
+      color: #343a40; /* Color del título */
+    }
+    .btn-custom {
+      background-color: #28a745; /* Color verde para el botón */
+      border: none; /* Sin borde */
+      border-radius: 30px; /* Esquinas más redondeadas */
+      padding: 12px 24px; /* Espaciado del botón */
+      font-weight: bold; /* Negrita */
+    }
+    .btn-custom:hover {
+      background-color: #218838; /* Color más oscuro al pasar el mouse */
+    }
+    .sidebar {
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      padding-top: 20px;
+      background-color: #fffb00;
+      color: rgb(255, 0, 0);
+    }
+
+    .sidebar a:hover {
+      background-color: #00eeff;
+      border-radius: 5px;
+    }
+    .sidebar-heading {
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #adb5bd;
+    }
+  </style>
+</head>
+<body>
+  <div class="d-flex">
+    <!-- Barra lateral -->
+    <%- include('sidebar') %>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4"><%= song.title %></h1>
+    <div class="card mx-auto" style="width: 23rem;"> <!-- Ancho ajustado -->
+      <% if (song.coverImage) { %>
+        <img src="/images/<%= song.coverImage %>" class="card-img-top" alt="<%= song.title %>">
+      <% } else { %>
+        <img src="/images/default-cover.jpg" class="card-img-top" alt="Portada por defecto">
+      <% } %>
+      <div class="card-body">
+        <h5 class="card-title">Artista: <%= song.artist %></h5>
+        <p class="card-text"><strong>Álbum:</strong> <%= song.album || 'N/A' %></p>
+        <p class="card-text"><strong>Año:</strong> <%= song.year %></p>
+        <audio controls class="w-100 mt-2">
+          <source src="/music/<%= song.audioFile %>" type="audio/mpeg">
+          Tu navegador no soporta la reproducción de audio.
+        </audio>
+      </div>
+    </div>
+    <div class="text-center mt-3">
+      <a href="/" class="btn btn-custom">Volver a la lista</a>
+    </div>
+  </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Dashboard Musical</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <style>
+    body {
+      background-color: #f0f2f5; /* Subtle background color */
+    }
+    .sidebar {
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      padding-top: 20px;
+      background-color: #ffc107; /* Bright yellow sidebar */
+      color: #343a40; /* Darker text color */
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+    .sidebar a {
+      color: #343a40; /* Darker text color for links */
+    }
+    .sidebar a:hover {
+      background-color: #00aaff; /* Highlight color on hover */
+      border-radius: 5px;
+      color: #fff; /* White text on hover */
+    }
+    .sidebar-heading {
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #495057; /* Muted heading color */
+    }
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+      overflow: hidden; /* Prevent image overflow */
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card-img-top {
+      height: 200px; /* Fixed height for images */
+      object-fit: cover; /* Maintain aspect ratio */
+    }
+    .main-content {
+      margin-left: 250px; /* Space for sidebar */
+      padding: 20px;
+    }
+    .search-container {
+      margin: 20px 0;
+    }
+    .btn-favorite {
+      transition: background-color 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Incluir la barra lateral -->
+      <%- include('sidebar') %>
+
+      <!-- Contenido principal -->
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-4">
+        <h1 class="my-4 text-center text-dark">Bienvenido a tu Colección Musical</h1>
+        
+        <!-- Sección de Búsqueda -->
+        <div class="search-container text-center">
+          <form action="/search" method="GET" class="d-flex justify-content-center">
+            <input class="form-control me-2" type="search" name="query" placeholder="Buscar canciones..." aria-label="Search">
+            <button class="btn btn-outline-primary" type="submit">Buscar</button>
+          </form>
+        </div>
+
+        <div class="row">
+          <% songs.forEach(song => { %>
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <img src="/images/<%= song.coverImage || 'default-cover.jpg' %>" class="card-img-top" alt="<%= song.title %>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= song.title %></h5>
+                  <p class="card-text"><strong>Artista:</strong> <%= song.artist %></p>
+                  <p class="card-text"><strong>Álbum:</strong> <%= song.album || 'N/A' %></p>
+                  <p class="card-text"><strong>Año:</strong> <%= song.year %></p>
+                  <button class="btn btn-danger btn-favorite" id="favorite-btn-<%= song._id %>" onclick="toggleFavorite('<%= song._id %>', this)" data-favorite="<%= song.isFavorite %>">
+                    <i class="bi bi-heart-fill"></i> <span>Me encanta</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    async function toggleFavorite(songId, button) {
+      const isFavorite = button.getAttribute('data-favorite') === 'true';
+      
+      try {
+          const response = await fetch(`/toggle-favorite/${songId}`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              }
+          });
+  
+          if (response.ok) {
+              // Cambiar el estado del botón
+              if (isFavorite) {
+                  button.setAttribute('data-favorite', 'false');
+                  button.classList.remove('btn-success');
+                  button.classList.add('btn-danger');
+                  button.querySelector('span').textContent = 'Me encanta';
+              } else {
+                  button.setAttribute('data-favorite', 'true');
+                  button.classList.remove('btn-danger');
+                  button.classList.add('btn-success');
+                  button.querySelector('span').textContent = 'Favorito';
+              }
+          } else {
+              console.error('Error al marcar como favorita');
+          }
+      } catch (error) {
+          console.error('Error:', error);
+      }
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

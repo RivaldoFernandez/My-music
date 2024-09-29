@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Añadir Canción</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .sidebar {
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      padding-top: 20px;
+      background-color: #fffb00;
+      color: rgb(255, 0, 0);
+    }
+
+    .sidebar a:hover {
+      background-color: #00eeff;
+      border-radius: 5px;
+    }
+    .sidebar-heading {
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #adb5bd;
+    }
+    .form-container {
+      margin-left: 250px; /* Ajustar según el ancho de la barra lateral */
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    .form-label {
+      font-weight: bold;
+    }
+    .form-control {
+      margin-bottom: 5px; /* Reduce space between input fields */
+    }
+    .btn-primary {
+      background-color: #007bff; /* Custom primary color */
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3; /* Darker shade on hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="d-flex">
+    <!-- Barra lateral -->
+    <%- include('sidebar') %>
+
+    <div class="form-container container mt-5">
+      <div class="card p-4">
+        <h1 class="text-center mb-4">Añadir Canción</h1>
+        <form action="/add-song" method="POST" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="title" class="form-label">Título:</label>
+            <input type="text" class="form-control" name="title" id="title" placeholder="Ingrese el título" required>
+          </div>
+          <div class="mb-3">
+            <label for="artist" class="form-label">Artista:</label>
+            <input type="text" class="form-control" name="artist" id="artist" placeholder="Ingrese el nombre del artista" required>
+          </div>
+          <div class="mb-3">
+            <label for="album" class="form-label">Álbum:</label>
+            <input type="text" class="form-control" name="album" id="album" placeholder="Ingrese el álbum">
+          </div>
+
+          <div class="mb-3">
+            <label for="year" class="form-label">Año:</label>
+            <input type="number" class="form-control" name="year" id="year" placeholder="Ingrese el año" required>
+          </div>
+          <div class="mb-3">
+            <label for="coverImage" class="form-label">Portada de la canción:</label>
+            <input type="file" class="form-control" name="coverImage" id="coverImage">
+          </div>
+          <div class="mb-3">
+            <label for="audioFile" class="form-label">Archivo de música:</label>
+            <input type="file" class="form-control" name="audioFile" id="audioFile">
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Guardar Canción</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cl-icon/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #fff;
+        }
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #081b29;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+        }
+        ::-webkit-input-placeholder {
+            color: #eee;
+        }
+        .wrapper {
+            position: relative;
+            width: 80vw;
+            height: 65vh;
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border: 3px solid #00ffff;
+            border-radius: 10px;
+            box-shadow: 0 0 50px 0 #00a6bc;
+        }
+        .form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .title {
+            font-size: 35px;
+        }
+        .inp {
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            position: relative;
+        }
+        .input {
+            border: none;
+            outline: none; 
+            background: none;
+            width: 260px;
+            margin-top: 40px;
+            padding-right: 10px;
+            font-size: 10px;
+            color: #0ef;
+        }
+        .inp i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgb(2, 238, 255);
+        }
+        .banner {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 450px;
+            height: 100%;
+            background: linear-gradient(to right, #0ef, #c800ff);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 60% 100%);
+            padding-right: none;
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+        }
+        .wel_text {
+            font-size: 40px;
+            margin-top: -50px;
+            line-height: 50px;
+        }
+        .para {
+            margin-top: 10px;
+            font-size: 18px;
+            line-height: 24px;
+            letter-spacing: 1px;
+        }
+        .submit {
+            border: none;
+            outline: none;
+            width: 288px;
+            margin-top: 25px;
+            padding: 10px 0;
+            font-size: 20px;
+            border-radius: 40px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #0ef, #c800ff);
+        }
+        .footer {
+            margin-top: 30px;
+            letter-spacing: 0.5px;
+            font-size: 14px;
+        }
+        .link {
+            color: #0ef;
+            text-decoration: none;
+        }
+        .tamno-text{
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <form action="/login" method="POST" class="form">
+            <h1 class="title">Inicio</h1>
+            <div class="inp">
+                <input type="text" name="username" id="username" class="input tamno-text" placeholder="Usuario" required>
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="inp">
+                <input type="password" name="password" id="password" class="input tamno-text" placeholder="Contraseña" required>
+                <i class="fas fa-lock"></i>
+            </div>
+            <button type="submit" class="submit">Iniciar Sesion</button>
+            <p class="footer">¿No tienes cuenta?<a href="/register" class="link"> Por favor, Regístrate</a></p>
+        </form>
+        <div></div>
+        <div class="banner">
+            <h1 class="wel_text">Bienvenido <br /></h1>
+            <p class="text">Enhorabuena</p>
+        </div>
+    </div>
+</body>
+
+</html>
