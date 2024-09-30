@@ -5,10 +5,6 @@ Esta aplicación permite a los usuarios gestionar su colección de canciones. Pu
 
 ## Tabla de Contenidos
 - [Instalación](#instalación)
-- [Uso](#uso)
-- [Contribución](#contribución)
-- [Licencia](#licencia)
-- [Contacto](#contacto)
 
 
 
@@ -26,13 +22,7 @@ A continuación se presentan los enlaces a mis perfiles en varias plataformas:
 - **WhatsApp**: [Rivaldo Fernández](https://whatsapp.com)
 - **Telegram**: [Rivaldo Fernández](https://telegram.com)
 - **TikTok**: [Rivaldo Fernández](https://tiktok.com)
-- **Discord**: [Rivaldo Fernández](https://discord.com)
-- **Reddit**: [Rivaldo Fernández](https://reddit.com)
-- **Vimeo**: [Rivaldo Fernández](https://vimeo.com)
-- **WordPress**: [Rivaldo Fernández](https://wordpress.com)
-- **Spotify**: [Rivaldo Fernández](https://spotify.com)
-- **Apple**: [Rivaldo Fernández](https://apple.com)
-- **PayPal**: [Rivaldo Fernández](https://paypal.com)
+
 
 ## Instalación
 Para utilizar este proyecto, simplemente clona el repositorio o descarga los archivos:
