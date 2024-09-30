@@ -1,14 +1,16 @@
+// Importación de las dependencias
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const session = require('express-session');
-const bcrypt = require('bcrypt');
+const session = require('express-session'); 
+const bcrypt = require('bcrypt'); 
 
 const app = express();
 
+// Conexión a la base de datos MongoDB
 mongoose.connect('mongodb://0.0.0.0:27017/Lab8', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -16,13 +18,18 @@ mongoose.connect('mongodb://0.0.0.0:27017/Lab8', {
   .then(() => console.log('MongoDB connected!'))
   .catch((error) => console.error('MongoDB connection error:', error));
 
+// ------------------------------
+// Esquema y modelo de usuarios
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true }
 });
 
 const User = mongoose.model('User', userSchema);
+// ------------------------------
 
+// ------------------------------
+// Esquema y modelo de canciones
 const songSchema = new mongoose.Schema({
   title: { type: String, required: true },
   artist: { type: String, required: true },
@@ -35,7 +42,9 @@ const songSchema = new mongoose.Schema({
 });
 
 const Song = mongoose.model('Song', songSchema);
+// ------------------------------
 
+// Configuración de almacenamiento de archivos con multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     let dir = '';
@@ -59,27 +68,39 @@ const upload = multer({
   limits: { fileSize: 10000000 },
 });
 
+// Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('uploads'));
 app.set('view engine', 'ejs');
 
+// ------------------------------
+// Configuración de sesiones
 app.use(session({
   secret: 'mi_clave_secreta',
   resave: false,
   saveUninitialized: true
 }));
+// ------------------------------
 
+// ------------------------------
+// Middleware de autenticación
 function isAuthenticated(req, res, next) {
   if (req.session.userId) {
     return next();
   }
   res.redirect('/login');
 }
+// ------------------------------
 
+// ------------------------------
+// Ruta para mostrar el formulario de inicio de sesión
 app.get('/login', (req, res) => {
   res.render('login');
 });
+// ------------------------------
 
+// ------------------------------
+// Ruta para procesar el inicio de sesión
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
@@ -93,7 +114,34 @@ app.post('/login', async (req, res) => {
   req.session.userId = user._id;
   res.redirect('/');
 });
+// ------------------------------
 
+// ------------------------------
+// Ruta para mostrar el formulario de registro
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+// ------------------------------
+
+// ------------------------------
+// Ruta para procesar el registro de usuarios
+app.post('/register', async (req, res) => {
+  const { username, password } = req.body;
+  const existingUser = await User.findOne({ username });
+  if (existingUser) {
+    return res.status(400).send('El nombre de usuario ya está en uso');
+  }
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const newUser = new User({
+    username,
+    password: hashedPassword
+  });
+  await newUser.save();
+  res.redirect('/login');
+});
+// ------------------------------
+
+// Rutas principales
 app.get('/', isAuthenticated, async (req, res) => {
   const songs = await Song.find();
   res.render('index', { songs });
@@ -158,31 +206,8 @@ app.post('/edit-song/:id', isAuthenticated, upload.fields([{ name: 'coverImage' 
   res.redirect('/songs');
 });
 
-app.get('/search', isAuthenticated, async (req, res) => {
-  const query = req.query.query;
-  let songs;
-  if (query) {
-    songs = await Song.find({ title: new RegExp(query, 'i') });
-  } else {
-    songs = await Song.find();
-  }
-  res.render('index', { songs });
-});
-
-app.post('/toggle-favorite/:id', isAuthenticated, async (req, res) => {
-  const song = await Song.findById(req.params.id);
-  if (song) {
-    song.isFavorite = !song.isFavorite;
-    await song.save();
-  }
-  res.status(200).send();
-});
-
-app.get('/favoritos', isAuthenticated, async (req, res) => {
-  const favoriteSongs = await Song.find({ isFavorite: true });
-  res.render('favoritos', { favoriteSongs });
-});
-
+// ------------------------------
+// Ruta para ver detalles de una canción
 app.get('/details/:id', isAuthenticated, async (req, res) => {
   const song = await Song.findById(req.params.id);
   if (!song) {
@@ -190,7 +215,10 @@ app.get('/details/:id', isAuthenticated, async (req, res) => {
   }
   res.render('details', { song });
 });
+// ------------------------------
 
+// ------------------------------
+// Ruta para eliminar una canción
 app.post('/delete-song/:id', isAuthenticated, async (req, res) => {
   try {
     await Song.findByIdAndDelete(req.params.id);
@@ -200,24 +228,38 @@ app.post('/delete-song/:id', isAuthenticated, async (req, res) => {
     res.status(500).send('Error al eliminar la canción');
   }
 });
+// ------------------------------
 
-app.get('/register', (req, res) => {
-  res.render('register');
-});
-
-app.post('/register', async (req, res) => {
-  const { username, password } = req.body;
-  const existingUser = await User.findOne({ username });
-  if (existingUser) {
-    return res.status(400).send('El nombre de usuario ya está en uso');
+// ------------------------------
+// Ruta para gestionar canciones favoritas
+app.post('/toggle-favorite/:id', isAuthenticated, async (req, res) => {
+  const song = await Song.findById(req.params.id);
+  if (song) {
+    song.isFavorite = !song.isFavorite;
+    await song.save();
   }
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const newUser = new User({
-    username,
-    password: hashedPassword
-  });
-  await newUser.save();
-  res.redirect('/login');
+  res.status(200).send();
+});
+// ------------------------------
+
+// ------------------------------
+// Ruta para mostrar canciones favoritas
+app.get('/favoritos', isAuthenticated, async (req, res) => {
+  const favoriteSongs = await Song.find({ isFavorite: true });
+  res.render('favoritos', { favoriteSongs });
+});
+// ------------------------------
+
+// Ruta de búsqueda de canciones
+app.get('/search', isAuthenticated, async (req, res) => {
+  const query = req.query.query;
+  let songs;
+  if (query) {
+    songs = await Song.find({ title: new RegExp(query, 'i') });
+  } else {
+    songs = await Song.find();
+  }
+  res.render('index', { songs });
 });
 
 const PORT = 5000;
