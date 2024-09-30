@@ -13,7 +13,7 @@ A continuación se presentan los enlaces a mis perfiles en varias plataformas:
 
 - **Facebook**: [Rivaldo Fernández](https://www.facebook.com/rivaldo.fernandez.07)
 - **Instagram**: [Rivaldo Fernández](https://www.instagram.com/rivaldo_fcr7)
-- **LinkedIn**: [Rivaldo Fernández](www.linkedin.com/in/rivaldo-fernandez)
+- **LinkedIn**: [Rivaldo Fernández](https://www.linkedin.com/in/rivaldo-fernandez)
 - **GitHub**: [Rivaldo Fernández](https://github.com/RivaldoFernandez)
 - **YouTube**: [Rivaldo Fernández](https://www.youtube.com/@rivaldofernandez)
 - **WhatsApp**: [Rivaldo Fernández](https://wa.me/51993074958)
