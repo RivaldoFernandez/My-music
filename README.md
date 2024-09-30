@@ -12,16 +12,12 @@ Esta aplicación permite a los usuarios gestionar su colección de canciones. Pu
 A continuación se presentan los enlaces a mis perfiles en varias plataformas:
 
 - **Facebook**: [Rivaldo Fernández](https://www.facebook.com/rivaldo.fernandez.07)
-- **Twitter**: [Rivaldo Fernández](https://twitter.com)
 - **Instagram**: [Rivaldo Fernández](https://www.instagram.com/rivaldo_fcr7)
-- **LinkedIn**: [Rivaldo Fernández](https://linkedin.com)
+- **LinkedIn**: [Rivaldo Fernández](www.linkedin.com/in/rivaldo-fernandez)
 - **GitHub**: [Rivaldo Fernández](https://github.com/RivaldoFernandez)
-- **YouTube**: [Rivaldo Fernández](https://youtube.com)
-- **Pinterest**: [Rivaldo Fernández](https://pinterest.com)
-- **Snapchat**: [Rivaldo Fernández](https://snapchat.com)
-- **WhatsApp**: [Rivaldo Fernández](https://whatsapp.com)
-- **Telegram**: [Rivaldo Fernández](https://telegram.com)
-- **TikTok**: [Rivaldo Fernández](https://tiktok.com)
+- **YouTube**: [Rivaldo Fernández](https://www.youtube.com/@rivaldofernandez)
+- **WhatsApp**: [Rivaldo Fernández](https://wa.me/51993074958)
+- **TikTok**: [Rivaldo Fernández](https://www.tiktok.com/@don.t_love_25)
 
 
 ## Instalación
